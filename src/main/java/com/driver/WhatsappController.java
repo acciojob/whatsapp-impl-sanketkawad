@@ -35,7 +35,7 @@ public class WhatsappController {
 
 
     @PostMapping("/add-group")
-    public Group createGroup(List<User> users){
+    public ResponseEntity createGroup(List<User> users){
 //        // The list contains at least 2 users where the first user is the admin. A group has exactly one admin.
 //        // If there are only 2 users, the group is a personal chat and the group name should be kept as the name of the second user(other than admin)
 //        // If there are 2+ users, the name of group should be "Group count". For example, the name of first group would be "Group 1", second would be "Group 2" and so on.
@@ -44,16 +44,17 @@ public class WhatsappController {
 //
 //        //For example: Consider userList1 = {Alex, Bob, Charlie}, userList2 = {Dan, Evan}, userList3 = {Felix, Graham, Hugh}.
 //        //If createGroup is called for these userLists in the same order, their group names would be "Group 1", "Evan", and "Group 2" respectively.
-//
-        return whatsappService.createGroup(users);
+
+        return new ResponseEntity<>(whatsappService.createGroup(users),HttpStatus.CREATED);
+
     }
 //
     @PostMapping("/add-message")
-    public int createMessage(String content){
+    public ResponseEntity createMessage(String content){
 //        // The 'i^th' created message has message id 'i'.
 //        // Return the message id.
-//
-        return whatsappService.createMessage(content);
+        int response = whatsappService.createMessage(content);
+        return new ResponseEntity<>(response,HttpStatus.CREATED);
     }
 //
     @PutMapping("/send-message")
